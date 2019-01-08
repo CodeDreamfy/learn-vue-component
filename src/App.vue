@@ -14,10 +14,11 @@ export default {
   data: () => ({
     kim: 0,
   }),
-  watch: {
-    kim(val) {
-      console.log("kim::", val); // eslint-disable-line
-    },
+  mounted() {
+    this.broadcast('checkbox', 'on-message', 'hello Vue.js');
+    this.$on('on-message', () => {
+      console.log("HELLO App"); // eslint-disable-line
+    });
   },
 };
 </script>

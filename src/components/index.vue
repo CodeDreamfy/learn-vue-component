@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <checkbox></checkbox>
+    <checkbox @test="handleEvent"></checkbox>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import checkbox from './checkbox';
 
 export default {
-  name: 'HelloWorld',
+  name: 'index',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -17,6 +17,11 @@ export default {
   },
   components: {
     checkbox,
+  },
+  methods: {
+    handleEvent(text) {
+      console.log("handleEvent:", text); // eslint-disable-line
+    },
   },
 };
 </script>
