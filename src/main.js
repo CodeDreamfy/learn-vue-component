@@ -4,10 +4,12 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import mixins from './mixins';
+import plugins from './plugins';
 
 Vue.config.productionTip = false;
 
 Vue.mixin(mixins);
+Vue.use(plugins);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
