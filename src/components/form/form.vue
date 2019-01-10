@@ -7,9 +7,11 @@
 <script>
 export default {
   name: 'iForm',
-  provide: () => ({
-    form: this,
-  }),
+  provide() {
+    return {
+      form: this,
+    };
+  },
   data() {
     return {
       fields: [],
@@ -26,7 +28,7 @@ export default {
   methods: {
     resetFields() {
       this.fields.forEach((field) => {
-        field.resetFiled();
+        field.resetField();
       });
     },
     validate(callback) {

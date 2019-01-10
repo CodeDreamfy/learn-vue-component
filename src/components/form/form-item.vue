@@ -3,11 +3,14 @@
     <label v-if="label" :class="{ 'i-form-item-label-required': isRequired }">{{ label }}</label>
     <div>
       <slot></slot>
+      <div v-if="validateState === 'error'" class="i-form-item-message">{{ validateMessage }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import AsyncValidator from 'async-validator';
+
 export default {
   name: 'iFormItem',
   inject: ['form'],
@@ -34,8 +37,9 @@ export default {
     setRules() {
       const rules = this.getRules();
       if (rules.length) {
-        rules.forEach((rule) => {
+        rules.some((rule) => {
           this.isRequired = rule.required;
+          return true;
         });
       }
       this.$on('on-form-blur', this.onFieldBlur);
@@ -58,15 +62,16 @@ export default {
       const descriptor = {};
       descriptor[this.prop] = rules;
 
-      const validator = this.asyncValidator(descriptor);
+
+      const validator = new AsyncValidator(descriptor);
       const model = {};
       model[this.prop] = this.fieldValue;
-      validator.validate(model, { firstFields: true }, (errors) => {
+      return validator.validate(model, { firstFields: true }, (errors) => {
         this.validateState = !errors ? 'success' : 'error';
+        console.log("errors", errors);// eslint-disable-line
         this.validateMessage = errors ? errors[0].message : '';
         callback(this.validateMessage);
       });
-      return true;
     },
     onFieldBlur() {
       this.validate('blur');
@@ -101,6 +106,6 @@ export default {
   color: red;
 }
 .i-form-item-message {
-  color: red;
+  color: red; font-size: 12px;
 }
 </style>

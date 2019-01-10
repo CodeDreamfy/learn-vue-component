@@ -16,17 +16,20 @@ export default {
       default: '',
     },
   },
-  data: (() => ({
-    currentValue: this.value,
-  })),
+  data() {
+    return {
+      currentValue: this.value,
+    };
+  },
   watch: {
     value(val) {
       this.currentValue = val;
     },
   },
   methods: {
-    handleInput() {
-      this.$emit('input', this.currentValue);
+    handleInput(event) {
+      const value = event.target.value;
+      this.$emit('input', value);
       this.dispatch('iFormItem', 'on-form-change', this.currentValue);
     },
     handleBlur() {

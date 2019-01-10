@@ -10,7 +10,7 @@
       </i-form-item>
     </i-form>
     <button @click="handleSubmit">提交</button>
-    <button @click="handleReset">提交</button>
+    <button @click="handleReset">重置</button>
   </div>
 </template>
 
@@ -29,10 +29,10 @@ export default {
     },
     ruleValidate: {
       name: [
-        { require: true, message: '用户名不能为空', trigger: 'blur' },
+        { required: true, message: '用户名不能为空', trigger: 'blur' },
       ],
       mail: [
-        { require: true, message: '邮箱不能为空', trigger: 'blur' },
+        { required: true, message: '邮箱不能为空', trigger: 'blur' },
         { type: 'email', message: '邮箱格式不正确', trigger: 'blur' },
       ],
     },
